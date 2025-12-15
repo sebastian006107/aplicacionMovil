@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="registro-container">
+    <ion-card class="form-card">
+      <ion-card-content>
+        
+        <ion-item class="input-item" lines="none">
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input [(ngModel)]="nombre" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item" lines="none">
+          <ion-label position="stacked">Apellido</ion-label>
+          <ion-input [(ngModel)]="apellido" type="text"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item" lines="none">
+          <ion-label position="stacked">Correo electrónico</ion-label>
+          <ion-input [(ngModel)]="email" type="email"></ion-input>
+        </ion-item>
+
+        <ion-item class="input-item" lines="none">
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input [(ngModel)]="password" type="password"></ion-input>
+        </ion-item>
+
+        <mat-form-field class="date-field">
+          <mat-label>Fecha Nacimiento</mat-label>
+          <input matInput [matDatepicker]="picker" [(ngModel)]="fechaNacimiento">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <ion-button expand="block" (click)="registrarse()" class="register-button">
+          Guardar Datos
+        </ion-button>
+
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

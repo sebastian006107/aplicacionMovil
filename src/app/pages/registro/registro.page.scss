@@ -1,0 +1,61 @@
+ion-content {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+ion-toolbar {
+  --background: #667eea;
+  --color: white;
+}
+
+ion-back-button {
+  --color: white;
+}
+
+ion-title {
+  --color: white;
+}
+
+.registro-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 90vh;
+  padding: 20px;
+}
+
+.form-card {
+  max-width: 400px;
+  margin: 0 auto;
+  width: 100%;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.input-item {
+  --background: transparent;
+  margin-bottom: 15px;
+  
+  ion-label {
+    font-weight: 500;
+    color: #d65a31;
+  }
+  
+  ion-input {
+    color: #333;
+  }
+}
+
+.register-button {
+  margin-top: 25px;
+  --background: #d65a31;
+  --background-activated: #c24d26;
+  font-weight: bold;
+  height: 50px;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+.date-field {
+  width: 100%;
+  margin: 15px 0;
+}
