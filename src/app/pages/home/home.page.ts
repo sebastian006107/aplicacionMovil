@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { TransactionService } from 'src/app/services/transaction.service';
-import { Transaction, CATEGORIAS } from 'src/models/transaction.model';
+import { Transaction, CATEGORIAS } from '../../models/transaction.model';
 
 @Component({
   selector: 'app-home',
