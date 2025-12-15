@@ -1,0 +1,299 @@
+ion-content {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+// Tarjeta de Balance
+.balance-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  margin: 20px 0;
+
+  ion-card-content {
+    padding: 25px;
+  }
+}
+
+.balance-container {
+  text-align: center;
+
+  .balance-label {
+    font-size: 14px;
+    opacity: 0.9;
+    margin: 0 0 10px 0;
+  }
+
+  .balance-amount {
+    font-size: 42px;
+    font-weight: bold;
+    margin: 10px 0;
+    
+    &.positive {
+      color: #55efc4;
+    }
+    
+    &.negative {
+      color: #ff7675;
+    }
+  }
+
+  .balance-details {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+    gap: 20px;
+
+    .balance-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      flex: 1;
+
+      ion-icon {
+        font-size: 32px;
+      }
+
+      &.ingreso ion-icon {
+        color: #55efc4;
+      }
+
+      &.gasto ion-icon {
+        color: #ff7675;
+      }
+
+      div {
+        text-align: left;
+
+        .label {
+          font-size: 12px;
+          opacity: 0.8;
+          margin: 0 0 5px 0;
+        }
+
+        .amount {
+          font-size: 16px;
+          font-weight: bold;
+          margin: 0;
+        }
+      }
+    }
+  }
+}
+
+// Sección de Headers
+.section-header {
+  margin: 25px 0 15px 0;
+
+  h2 {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+  }
+}
+
+// Gastos por Categoría
+.categoria-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #f0f0f0;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .categoria-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    flex: 1;
+
+    .categoria-icon {
+      width: 45px;
+      height: 45px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      ion-icon {
+        font-size: 24px;
+        color: white;
+      }
+    }
+
+    .categoria-text {
+      .categoria-nombre {
+        font-size: 15px;
+        font-weight: 500;
+        margin: 0 0 5px 0;
+        color: #333;
+      }
+
+      .categoria-monto {
+        font-size: 14px;
+        color: #666;
+        margin: 0;
+      }
+    }
+  }
+
+  .categoria-porcentaje {
+    text-align: right;
+    min-width: 80px;
+
+    p {
+      font-size: 14px;
+      font-weight: bold;
+      color: #667eea;
+      margin: 0 0 8px 0;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 6px;
+      background: #f0f0f0;
+      border-radius: 10px;
+      overflow: hidden;
+
+      .progress-fill {
+        height: 100%;
+        border-radius: 10px;
+        transition: width 0.3s ease;
+      }
+    }
+  }
+}
+
+// Lista de Transacciones
+.transacciones-list {
+  margin-bottom: 80px;
+}
+
+.transaction-card {
+  border-radius: 15px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: white;
+
+  ion-card-content {
+    padding: 15px;
+  }
+}
+
+.transaction-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+
+  .transaction-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    ion-icon {
+      font-size: 26px;
+      color: white;
+    }
+  }
+
+  .transaction-info {
+    flex: 1;
+
+    .transaction-desc {
+      font-size: 15px;
+      font-weight: 500;
+      color: #333;
+      margin: 0 0 5px 0;
+    }
+
+    .transaction-cat {
+      font-size: 13px;
+      color: #999;
+      margin: 0;
+    }
+  }
+
+  .transaction-amount {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 5px;
+
+    p {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0;
+
+      &.ingreso {
+        color: #55efc4;
+      }
+
+      &.gasto {
+        color: #ff7675;
+      }
+    }
+
+    ion-button {
+      --color: #999;
+      --padding-start: 0;
+      --padding-end: 0;
+      height: 30px;
+
+      ion-icon {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+// Estado Vacío
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: white;
+
+  ion-icon {
+    font-size: 80px;
+    opacity: 0.5;
+    margin-bottom: 20px;
+  }
+
+  h3 {
+    font-size: 22px;
+    margin: 0 0 10px 0;
+  }
+
+  p {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+}
+
+// Botón Flotante
+ion-fab-button {
+  --background: #667eea;
+  --background-activated: #5568d3;
+  --box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+
+  ion-icon {
+    font-size: 28px;
+  }
+}
+
+// Tarjetas generales
+ion-card {
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}

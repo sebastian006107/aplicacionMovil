@@ -1,0 +1,109 @@
+ion-content {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.error-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 40px 20px;
+  text-align: center;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.error-icon {
+  animation: bounce 2s infinite;
+  
+  ion-icon {
+    font-size: 100px;
+    color: #FFD700;
+    filter: drop-shadow(0 5px 15px rgba(255, 215, 0, 0.3));
+  }
+}
+
+.error-code {
+  font-size: 120px;
+  font-weight: bold;
+  margin: 20px 0 10px 0;
+  color: white;
+  text-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.error-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin: 0 0 15px 0;
+  color: white;
+}
+
+.error-message {
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 40px 0;
+  line-height: 1.6;
+  max-width: 400px;
+}
+
+.back-button {
+  --background: white;
+  --background-activated: rgba(255, 255, 255, 0.9);
+  --color: #667eea;
+  --border-radius: 25px;
+  --box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+  
+  font-weight: bold;
+  height: 50px;
+  max-width: 300px;
+  margin: 0 auto;
+  font-size: 16px;
+
+  ion-icon {
+    font-size: 24px;
+    margin-right: 5px;
+  }
+}
+
+.illustration {
+  position: absolute;
+  bottom: -50px;
+  right: -50px;
+  opacity: 0.1;
+  animation: rotate 20s linear infinite;
+
+  ion-icon {
+    font-size: 300px;
+  }
+}
+
+// Animaciones
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

@@ -13,15 +13,24 @@ const routes: Routes = [
   },
   {
     path: 'recuperar-password',
-    loadChildren: () => import('./pages/recuperar-password/recuperar-password.module').then( m => m.RecuperarPasswordPageModule)
+    loadChildren: () => import('./pages/recuperar-password/recuperar-password.module').then(m => m.RecuperarPasswordPageModule)
   },
   {
     path: 'registro',
-    loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
+    loadChildren: () => import('./pages/registro/registro.module').then(m => m.RegistroPageModule)
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
+  },
+  {
+    path: 'error404',
+    loadChildren: () => import('./pages/error404/error404.module').then(m => m.Error404PageModule)
+  },
+  {
+    path: '**',
+    redirectTo: 'error404',
+    pathMatch: 'full'
   }
 ];
 
