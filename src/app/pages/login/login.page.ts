@@ -37,11 +37,11 @@ export class LoginPage {
       return;
     }
 
-// Validar con usuarios guardados
-if (this.storage.validarLogin(this.username, this.password)) {
-  // Login exitoso - guardar sesión
-  localStorage.setItem('currentUser', this.username);
-  this.navCtrl.navigateForward(['/home']);
+    // Validar con usuarios guardados
+    if (this.storage.validarLogin(this.username, this.password)) {
+      // Login exitoso - guardar sesión
+      localStorage.setItem('currentUser', this.username);
+      this.navCtrl.navigateForward(['/tabs/home']);
     } else {
       this.mostrarAlerta('Usuario o contraseña incorrectos');
     }

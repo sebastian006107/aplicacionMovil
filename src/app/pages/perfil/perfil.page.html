@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mi Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Card de perfil principal -->
+  <ion-card class="profile-card">
+    <ion-card-content>
+      <div class="profile-header">
+        <div class="avatar">
+          <ion-icon name="person"></ion-icon>
+        </div>
+        <div class="profile-info">
+          <h2>{{ usuario.nombre }} {{ usuario.apellido }}</h2>
+          <p>{{ usuario.email }}</p>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Opciones de configuración -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Configuración</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      
+      <ion-item button lines="full" (click)="editarPerfil()">
+        <ion-icon name="create-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h3>Editar Perfil</h3>
+          <p>Actualiza tus datos personales</p>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item button lines="full" (click)="cambiarPassword()">
+        <ion-icon name="lock-closed-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h3>Cambiar Contraseña</h3>
+          <p>Actualiza tu contraseña</p>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+
+      <ion-item button lines="full" (click)="verAcercaDe()">
+        <ion-icon name="information-circle-outline" slot="start" color="primary"></ion-icon>
+        <ion-label>
+          <h3>Acerca de</h3>
+          <p>Versión 1.0.0</p>
+        </ion-label>
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-item>
+
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Botón de cerrar sesión -->
+  <ion-button 
+    expand="block" 
+    color="danger" 
+    class="logout-button"
+    (click)="cerrarSesion()">
+    <ion-icon name="log-out-outline" slot="start"></ion-icon>
+    Cerrar Sesión
+  </ion-button>
+
+</ion-content>

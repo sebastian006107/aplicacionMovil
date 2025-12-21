@@ -28,5 +28,28 @@ export const CATEGORIAS: Categoria[] = [
   { nombre: 'Educación', icono: 'school', color: '#FD79A8' },
   { nombre: 'Servicios', icono: 'construct', color: '#74B9FF' },
   { nombre: 'Salario', icono: 'cash', color: '#55EFC4' },
+  { nombre: 'Freelance', icono: 'laptop', color: '#00B894' },
+  { nombre: 'Inversiones', icono: 'trending-up', color: '#FDCB6E' },
   { nombre: 'Otros', icono: 'ellipsis-horizontal', color: '#B2BEC3' }
 ];
+
+// Configuración de categorías por tipo
+export const CATEGORIAS_CONFIG = {
+  gastos: [
+    'Alimentación',
+    'Transporte', 
+    'Vivienda',
+    'Salud',
+    'Entretenimiento',
+    'Compras',
+    'Educación',
+    'Servicios',
+    'Otros'
+  ],
+  ingresos: [
+    'Salario',
+    'Freelance',
+    'Inversiones',
+    'Otros'
+  ]
+};

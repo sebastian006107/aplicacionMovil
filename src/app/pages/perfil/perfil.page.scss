@@ -1,0 +1,123 @@
+ion-content {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+ion-toolbar {
+  --background: #667eea;
+  --color: white;
+}
+
+ion-title {
+  --color: white;
+}
+
+.profile-card {
+  border-radius: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+  margin-bottom: 20px;
+
+  ion-card-content {
+    padding: 30px 20px;
+  }
+
+  .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    .avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+
+      ion-icon {
+        font-size: 40px;
+        color: #667eea;
+      }
+    }
+
+    .profile-info {
+      flex: 1;
+
+      h2 {
+        color: white;
+        font-size: 22px;
+        font-weight: bold;
+        margin: 0 0 5px 0;
+      }
+
+      p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 14px;
+        margin: 0;
+      }
+    }
+  }
+}
+
+ion-card {
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+
+  ion-card-header {
+    padding: 20px 20px 10px 20px;
+
+    ion-card-title {
+      color: #667eea;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  ion-card-content {
+    padding: 0;
+  }
+
+  ion-item {
+    --padding-start: 20px;
+    --padding-end: 20px;
+    --inner-padding-end: 0;
+    --min-height: 70px;
+
+    ion-icon[slot="start"] {
+      font-size: 24px;
+      margin-right: 15px;
+    }
+
+    ion-icon[slot="end"] {
+      font-size: 20px;
+      color: #999;
+    }
+
+    ion-label {
+      h3 {
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+        margin: 0 0 5px 0;
+      }
+
+      p {
+        font-size: 13px;
+        color: #999;
+        margin: 0;
+      }
+    }
+  }
+}
+
+.logout-button {
+  margin-top: 30px;
+  height: 50px;
+  font-weight: bold;
+  font-size: 16px;
+  --border-radius: 12px;
+}

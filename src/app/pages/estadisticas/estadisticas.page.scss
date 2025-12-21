@@ -1,0 +1,150 @@
+ion-content {
+  --background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+ion-toolbar {
+  --background: #667eea;
+  --color: white;
+}
+
+ion-title {
+  --color: white;
+}
+
+.stats-card {
+  margin-bottom: 20px;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+  ion-card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+
+    ion-card-title {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  ion-card-content {
+    padding: 20px;
+  }
+
+  .stat-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
+    background: #f8f9fa;
+    border-radius: 12px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    ion-icon {
+      font-size: 32px;
+    }
+
+    .stat-info {
+      flex: 1;
+
+      .stat-label {
+        font-size: 14px;
+        color: #666;
+        margin: 0 0 5px 0;
+      }
+
+      .stat-value {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0;
+
+        &.success {
+          color: #55efc4;
+        }
+
+        &.danger {
+          color: #ff7675;
+        }
+      }
+    }
+  }
+}
+
+ion-card {
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+
+  ion-card-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 20px;
+
+    ion-card-title {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+
+  ion-card-content {
+    padding: 20px;
+  }
+}
+
+.categoria-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 10px;
+  background: #f8f9fa;
+  border-radius: 12px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .categoria-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    ion-icon {
+      font-size: 24px;
+    }
+
+    span {
+      font-size: 15px;
+      font-weight: 500;
+      color: #333;
+    }
+  }
+
+  .categoria-monto {
+    font-size: 15px;
+    font-weight: bold;
+    color: #667eea;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: #999;
+
+  ion-icon {
+    font-size: 60px;
+    opacity: 0.5;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 14px;
+  }
+}

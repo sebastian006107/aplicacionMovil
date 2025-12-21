@@ -1,11 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
     <ion-title>Mi Billetera</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="cerrarSesion()">
-        <ion-icon name="log-out-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -105,12 +100,5 @@
     <h3>No hay transacciones</h3>
     <p>Comienza agregando tu primer ingreso o gasto</p>
   </div>
-
-  <!-- Botón Flotante para Agregar -->
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button (click)="agregarTransaccion()">
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
 
 </ion-content>

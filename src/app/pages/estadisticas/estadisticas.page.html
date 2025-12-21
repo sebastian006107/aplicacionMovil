@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Estadísticas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <ion-card class="stats-card">
+    <ion-card-header>
+      <ion-card-title>Resumen del Mes</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="stat-item">
+        <ion-icon name="arrow-down-circle" color="success"></ion-icon>
+        <div class="stat-info">
+          <p class="stat-label">Total Ingresos</p>
+          <p class="stat-value success">{{ formatearMoneda(balance.ingresos) }}</p>
+        </div>
+      </div>
+
+      <div class="stat-item">
+        <ion-icon name="arrow-up-circle" color="danger"></ion-icon>
+        <div class="stat-info">
+          <p class="stat-label">Total Gastos</p>
+          <p class="stat-value danger">{{ formatearMoneda(balance.gastos) }}</p>
+        </div>
+      </div>
+
+      <div class="stat-item">
+        <ion-icon name="wallet" color="primary"></ion-icon>
+        <div class="stat-info">
+          <p class="stat-label">Balance</p>
+          <p class="stat-value" [class.success]="balance.total >= 0" [class.danger]="balance.total < 0">
+            {{ formatearMoneda(balance.total) }}
+          </p>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Top Categorías de Gasto</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <div class="categoria-item" *ngFor="let cat of topCategorias">
+        <div class="categoria-info">
+          <ion-icon [name]="obtenerIcono(cat.categoria)" [style.color]="obtenerColor(cat.categoria)"></ion-icon>
+          <span>{{ cat.categoria }}</span>
+        </div>
+        <span class="categoria-monto">{{ formatearMoneda(cat.monto) }}</span>
+      </div>
+      
+      <div class="empty-state" *ngIf="topCategorias.length === 0">
+        <ion-icon name="pie-chart-outline"></ion-icon>
+        <p>No hay datos suficientes</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

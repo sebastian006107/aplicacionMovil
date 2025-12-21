@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { TransactionService } from '../../services/transaction.service';
-import { Transaction, CATEGORIAS } from '../../models/transaction.model';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { Transaction, CATEGORIAS_CONFIG, CATEGORIAS } from '../../models/transaction.model';
 
 @Component({
   selector: 'app-agregar-transaccion',
   templateUrl: './agregar-transaccion.page.html',
   styleUrls: ['./agregar-transaccion.page.scss'],
+  standalone: false
 })
 export class AgregarTransaccionPage implements OnInit {
 
@@ -32,46 +32,25 @@ export class AgregarTransaccionPage implements OnInit {
     this.filtrarCategorias();
   }
 
-  cambiarTipo() {
-    this.transaccion.tipo = this.transaccion.tipo === 'gasto' ? 'ingreso' : 'gasto';
-    this.transaccion.categoria = '';
-    this.filtrarCategorias();
-  }
-
   filtrarCategorias() {
     if (this.transaccion.tipo === 'gasto') {
-      this.categorias = CATEGORIAS.gastos;
+      this.categorias = CATEGORIAS_CONFIG.gastos;
     } else {
-      this.categorias = CATEGORIAS.ingresos;
+      this.categorias = CATEGORIAS_CONFIG.ingresos;
+    }
+    // Resetear categoría si ya no es válida para el nuevo tipo
+    if (!this.categorias.includes(this.transaccion.categoria)) {
+      this.transaccion.categoria = '';
     }
   }
 
   async tomarFoto() {
-    try {
-      const image = await Camera.getPhoto({
-        quality: 90,
-        allowEditing: false,
-        resultType: CameraResultType.DataUrl,
-        source: CameraSource.Camera
-      });
-
-      this.fotoCapturada = image.dataUrl || null;
-      
-      const alert = await this.alertController.create({
-        header: '¡Foto Capturada!',
-        message: 'La foto se guardará con la transacción',
-        buttons: ['OK']
-      });
-      await alert.present();
-
-    } catch (error) {
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'No se pudo tomar la foto. Asegúrate de dar permisos de cámara.',
-        buttons: ['OK']
-      });
-      await alert.present();
-    }
+    const alert = await this.alertController.create({
+      header: 'Función no disponible',
+      message: 'La cámara solo funciona en dispositivos móviles. Por ahora puedes continuar sin foto.',
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   eliminarFoto() {
@@ -110,23 +89,26 @@ export class AgregarTransaccionPage implements OnInit {
       return;
     }
 
+    // Obtener usuario actual
+    const usuarioEmail = localStorage.getItem('currentUser') || '';
+
     // Crear objeto de transacción
     const nuevaTransaccion: Transaction = {
-      id: Date.now().toString(),
       tipo: this.transaccion.tipo,
       monto: this.transaccion.monto,
       categoria: this.transaccion.categoria,
       descripcion: this.transaccion.descripcion,
-      fecha: this.transaccion.fecha
+      fecha: this.transaccion.fecha,
+      usuario_email: usuarioEmail
     };
 
     // Agregar foto si existe
     if (this.fotoCapturada) {
-      nuevaTransaccion.foto = this.fotoCapturada;
+      nuevaTransaccion.foto_comprobante = this.fotoCapturada;
     }
 
     // Guardar en el servicio
-    this.transactionService.addTransaction(nuevaTransaccion);
+    this.transactionService.guardarTransaccion(nuevaTransaccion);
 
     // Mostrar alerta de éxito
     const alert = await this.alertController.create({
@@ -145,31 +127,13 @@ export class AgregarTransaccionPage implements OnInit {
   }
 
   obtenerIcono(categoria: string): string {
-    const iconos: { [key: string]: string } = {
-      'Alimentación': 'fast-food-outline',
-      'Transporte': 'car-outline',
-      'Entretenimiento': 'game-controller-outline',
-      'Salud': 'fitness-outline',
-      'Salario': 'cash-outline',
-      'Freelance': 'laptop-outline',
-      'Inversiones': 'trending-up-outline',
-      'Otros': 'ellipsis-horizontal-outline'
-    };
-    return iconos[categoria] || 'pricetag-outline';
+    const cat = CATEGORIAS.find(c => c.nombre === categoria);
+    return cat?.icono || 'pricetag-outline';
   }
 
   obtenerColor(categoria: string): string {
-    const colores: { [key: string]: string } = {
-      'Alimentación': 'success',
-      'Transporte': 'primary',
-      'Entretenimiento': 'secondary',
-      'Salud': 'danger',
-      'Salario': 'success',
-      'Freelance': 'tertiary',
-      'Inversiones': 'warning',
-      'Otros': 'medium'
-    };
-    return colores[categoria] || 'medium';
+    const cat = CATEGORIAS.find(c => c.nombre === categoria);
+    return cat?.color || '#B2BEC3';
   }
 
 }
