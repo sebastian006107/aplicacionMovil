@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="Back"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Nueva Transacción</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <!-- Selector de Tipo -->
+  <div class="tipo-selector">
+    <ion-button 
+      expand="block" 
+      [fill]="transaccion.tipo === 'gasto' ? 'solid' : 'outline'" 
+      color="danger"
+      (click)="transaccion.tipo = 'gasto'; filtrarCategorias()">
+      <ion-icon name="remove-circle" slot="start"></ion-icon>
+      Gasto
+    </ion-button>
+
+    <ion-button 
+      expand="block" 
+      [fill]="transaccion.tipo === 'ingreso' ? 'solid' : 'outline'" 
+      color="success"
+      (click)="transaccion.tipo = 'ingreso'; filtrarCategorias()">
+      <ion-icon name="add-circle" slot="start"></ion-icon>
+      Ingreso
+    </ion-button>
+  </div>
+
+  <!-- Formulario -->
+  <ion-card class="form-card">
+    <ion-card-content>
+
+      <!-- Monto -->
+      <div class="input-group">
+        <ion-label>Monto</ion-label>
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="cash-outline" slot="start"></ion-icon>
+          <ion-input 
+            type="number" 
+            [(ngModel)]="transaccion.monto" 
+            placeholder="0">
+          </ion-input>
+        </ion-item>
+      </div>
+
+      <!-- Categoría -->
+      <div class="input-group">
+        <ion-label>Categoría</ion-label>
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="pricetag-outline" slot="start"></ion-icon>
+          <ion-select 
+            [(ngModel)]="transaccion.categoria" 
+            placeholder="Selecciona una categoría"
+            interface="action-sheet">
+            <ion-select-option *ngFor="let cat of categorias" [value]="cat">
+              {{ cat }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </div>
+
+      <!-- Descripción -->
+      <div class="input-group">
+        <ion-label>Descripción</ion-label>
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="document-text-outline" slot="start"></ion-icon>
+          <ion-textarea 
+            [(ngModel)]="transaccion.descripcion" 
+            placeholder="Ej: Compra en supermercado"
+            rows="3">
+          </ion-textarea>
+        </ion-item>
+      </div>
+
+      <!-- Fecha -->
+      <div class="input-group">
+        <ion-label>Fecha</ion-label>
+        <ion-item class="input-item" lines="none">
+          <ion-icon name="calendar-outline" slot="start"></ion-icon>
+          <ion-input 
+            type="date" 
+            [(ngModel)]="transaccion.fecha"
+            placeholder="Selecciona una fecha">
+          </ion-input>
+        </ion-item>
+      </div>
+
+      <!-- Sección de Foto -->
+      <div class="input-group">
+        <ion-label>Foto (Opcional)</ion-label>
+        
+        <ion-button 
+          expand="block" 
+          fill="outline" 
+          color="primary"
+          (click)="tomarFoto()">
+          <ion-icon name="camera-outline" slot="start"></ion-icon>
+          Tomar Foto del Recibo
+        </ion-button>
+
+        <!-- Preview de la foto -->
+        <div class="foto-preview" *ngIf="fotoCapturada">
+          <img [src]="fotoCapturada" alt="Foto capturada">
+          <ion-button 
+            size="small" 
+            color="danger" 
+            (click)="eliminarFoto()">
+            <ion-icon name="trash-outline"></ion-icon>
+            Eliminar
+          </ion-button>
+        </div>
+      </div>
+
+      <!-- Botones de Acción -->
+      <div class="action-buttons">
+        <ion-button 
+          expand="block" 
+          color="light"
+          (click)="cancelar()">
+          Cancelar
+        </ion-button>
+
+        <ion-button 
+          expand="block" 
+          color="primary"
+          (click)="guardarTransaccion()">
+          <ion-icon name="save-outline" slot="start"></ion-icon>
+          Guardar
+        </ion-button>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
