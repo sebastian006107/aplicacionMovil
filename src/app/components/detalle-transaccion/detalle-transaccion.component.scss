@@ -175,3 +175,42 @@ ion-footer {
     height: 50px;
   }
 }
+
+ion-content {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.detalle-card {
+  animation: zoomIn 0.4s ease-out;
+}
+
+.foto-card {
+  animation: fadeInUp 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
