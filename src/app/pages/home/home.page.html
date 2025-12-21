@@ -6,14 +6,39 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   
+  <!-- PULL TO REFRESH -->
+  <ion-refresher slot="fixed" (ionRefresh)="refrescarDolar($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <!-- Tarjeta de Balance Principal -->
   <ion-card class="balance-card">
     <ion-card-content>
       <div class="balance-container">
+        
+        <!-- VALOR DEL DÓLAR ARRIBA -->
+        <div class="dolar-header">
+          <div class="dolar-mini">
+            <ion-icon name="logo-usd"></ion-icon>
+            <span *ngIf="!cargandoDolar && valorDolar > 0">
+              ${{ valorDolar.toLocaleString('es-CL', {minimumFractionDigits: 0}) }}
+            </span>
+            <ion-spinner name="dots" *ngIf="cargandoDolar"></ion-spinner>
+          </div>
+          <ion-button fill="clear" size="small" (click)="refrescarDolar()">
+            <ion-icon name="refresh-outline" [class.spinning]="cargandoDolar"></ion-icon>
+          </ion-button>
+        </div>
+
         <p class="balance-label">Balance Total</p>
         <h1 class="balance-amount" [class.positive]="balance.total >= 0" [class.negative]="balance.total < 0">
           {{ formatearMoneda(balance.total) }}
         </h1>
+
+        <!-- Balance en Dólares -->
+        <div class="balance-usd" *ngIf="valorDolar > 0">
+          <p class="usd-label">≈ {{ formatearDolares(balanceEnDolares) }}</p>
+        </div>
         
         <div class="balance-details">
           <div class="balance-item ingreso">

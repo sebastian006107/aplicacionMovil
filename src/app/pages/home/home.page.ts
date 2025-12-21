@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { TransactionService } from 'src/app/services/transaction.service';
+import { DolarService } from 'src/app/services/dolar.service';
 import { Transaction, CATEGORIAS } from '../../models/transaction.model';
 
 @Component({
@@ -23,18 +24,26 @@ export class HomePage implements OnInit {
   
   usuarioEmail: string = '';
 
+  // VARIABLES PARA EL DÓLAR
+  valorDolar: number = 0;
+  cargandoDolar: boolean = false;
+  balanceEnDolares: number = 0;
+
   constructor(
     private navCtrl: NavController,
     private transactionService: TransactionService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private dolarService: DolarService
   ) {}
 
   ngOnInit() {
     this.cargarDatos();
+    this.cargarValorDolar();
   }
 
   ionViewWillEnter() {
     this.cargarDatos();
+    this.cargarValorDolar();
   }
 
   cargarDatos() {
@@ -47,6 +56,37 @@ export class HomePage implements OnInit {
       .slice(0, 5);
     
     this.calcularGastosPorCategoria();
+    this.calcularBalanceEnDolares();
+  }
+
+  // CARGAR VALOR DEL DÓLAR (ASYNC/AWAIT)
+  async cargarValorDolar() {
+    this.cargandoDolar = true;
+    try {
+      // Consulta SÍNCRONA con async/await
+      this.valorDolar = await this.dolarService.obtenerDolarSync();
+      this.calcularBalanceEnDolares();
+    } catch (error) {
+      console.error('Error cargando dólar:', error);
+      this.valorDolar = 0;
+    } finally {
+      this.cargandoDolar = false;
+    }
+  }
+
+  // CALCULAR BALANCE EN DÓLARES
+  calcularBalanceEnDolares() {
+    if (this.valorDolar > 0) {
+      this.balanceEnDolares = this.balance.total / this.valorDolar;
+    }
+  }
+
+  // REFRESCAR VALOR DEL DÓLAR (PULL TO REFRESH)
+  async refrescarDolar(event?: any) {
+    await this.cargarValorDolar();
+    if (event) {
+      event.target.complete();
+    }
   }
 
   calcularGastosPorCategoria() {
@@ -127,6 +167,11 @@ export class HomePage implements OnInit {
 
   formatearMoneda(monto: number): string {
     return `$${monto.toLocaleString('es-CL')}`;
+  }
+
+  // FORMATEAR DÓLARES
+  formatearDolares(monto: number): string {
+    return `USD $${monto.toFixed(2)}`;
   }
 
   obtenerIcono(categoria: string): string {

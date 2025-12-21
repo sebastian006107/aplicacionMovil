@@ -15,6 +15,50 @@ ion-content {
   }
 }
 
+// DÓLAR EN EL HEADER DE BALANCE
+.dolar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+
+  .dolar-mini {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 8px 15px;
+    border-radius: 20px;
+
+    ion-icon {
+      font-size: 18px;
+      color: #55efc4;
+    }
+
+    span {
+      font-size: 14px;
+      font-weight: bold;
+      color: white;
+    }
+
+    ion-spinner {
+      --color: white;
+      width: 18px;
+      height: 18px;
+    }
+  }
+
+  ion-button {
+    --color: white;
+    --padding-start: 8px;
+    --padding-end: 8px;
+    margin: 0;
+    height: 32px;
+  }
+}
+
 .balance-container {
   text-align: center;
 
@@ -81,6 +125,19 @@ ion-content {
         }
       }
     }
+  }
+}
+
+// Balance en USD (más compacto)
+.balance-usd {
+  margin: 10px 0 15px 0;
+
+  .usd-label {
+    font-size: 16px;
+    opacity: 0.9;
+    margin: 0;
+    color: #55efc4;
+    font-weight: 500;
   }
 }
 
@@ -281,19 +338,18 @@ ion-content {
   }
 }
 
-// Botón Flotante
-ion-fab-button {
-  --background: #667eea;
-  --background-activated: #5568d3;
-  --box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
-
-  ion-icon {
-    font-size: 28px;
-  }
-}
-
 // Tarjetas generales
 ion-card {
   border-radius: 15px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+// Animación spinning
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
 }
