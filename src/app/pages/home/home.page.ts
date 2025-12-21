@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, AlertController } from '@ionic/angular';
+import { NavController, AlertController, ModalController } from '@ionic/angular';
 import { TransactionService } from 'src/app/services/transaction.service';
 import { DolarService } from 'src/app/services/dolar.service';
 import { Transaction, CATEGORIAS } from '../../models/transaction.model';
+import { DetalleTransaccionComponent } from '../../components/detalle-transaccion/detalle-transaccion.component';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +25,6 @@ export class HomePage implements OnInit {
   
   usuarioEmail: string = '';
 
-  // VARIABLES PARA EL DÓLAR
   valorDolar: number = 0;
   cargandoDolar: boolean = false;
   balanceEnDolares: number = 0;
@@ -33,7 +33,8 @@ export class HomePage implements OnInit {
     private navCtrl: NavController,
     private transactionService: TransactionService,
     private alertController: AlertController,
-    private dolarService: DolarService
+    private dolarService: DolarService,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {
@@ -59,11 +60,9 @@ export class HomePage implements OnInit {
     this.calcularBalanceEnDolares();
   }
 
-  // CARGAR VALOR DEL DÓLAR (ASYNC/AWAIT)
   async cargarValorDolar() {
     this.cargandoDolar = true;
     try {
-      // Consulta SÍNCRONA con async/await
       this.valorDolar = await this.dolarService.obtenerDolarSync();
       this.calcularBalanceEnDolares();
     } catch (error) {
@@ -74,14 +73,12 @@ export class HomePage implements OnInit {
     }
   }
 
-  // CALCULAR BALANCE EN DÓLARES
   calcularBalanceEnDolares() {
     if (this.valorDolar > 0) {
       this.balanceEnDolares = this.balance.total / this.valorDolar;
     }
   }
 
-  // REFRESCAR VALOR DEL DÓLAR (PULL TO REFRESH)
   async refrescarDolar(event?: any) {
     await this.cargarValorDolar();
     if (event) {
@@ -107,8 +104,15 @@ export class HomePage implements OnInit {
     this.mostrarAlertaTemporal('Próximamente: Agregar transacción');
   }
 
-  verDetalle(transaction: Transaction) {
-    this.mostrarAlertaTemporal(`Ver detalle de: ${transaction.descripcion}`);
+  async verDetalle(transaccion: Transaction) {
+    const modal = await this.modalController.create({
+      component: DetalleTransaccionComponent,
+      componentProps: {
+        transaccion: transaccion
+      }
+    });
+
+    await modal.present();
   }
 
   async eliminarTransaccion(transaction: Transaction) {
@@ -169,7 +173,6 @@ export class HomePage implements OnInit {
     return `$${monto.toLocaleString('es-CL')}`;
   }
 
-  // FORMATEAR DÓLARES
   formatearDolares(monto: number): string {
     return `USD $${monto.toFixed(2)}`;
   }

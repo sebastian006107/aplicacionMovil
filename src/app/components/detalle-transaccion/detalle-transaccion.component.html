@@ -1,0 +1,90 @@
+<p>
+  detalle-transaccion works!
+</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detalle de Transacción</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cerrar()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  
+  <ion-card class="detalle-card">
+    <ion-card-content>
+      
+      <div class="detalle-header">
+        <div class="categoria-badge" [style.background-color]="obtenerColor(transaccion.categoria)">
+          <ion-icon [name]="obtenerIcono(transaccion.categoria)"></ion-icon>
+          <span>{{ transaccion.categoria }}</span>
+        </div>
+      </div>
+
+      <div class="detalle-monto">
+        <p class="label">Monto</p>
+        <h2 [class.ingreso]="transaccion.tipo === 'ingreso'" [class.gasto]="transaccion.tipo === 'gasto'">
+          {{ transaccion.tipo === 'ingreso' ? '+' : '-' }}{{ formatearMoneda(transaccion.monto) }}
+        </h2>
+      </div>
+
+      <div class="detalle-item">
+        <ion-icon name="document-text-outline"></ion-icon>
+        <div>
+          <p class="item-label">Descripción</p>
+          <p class="item-value">{{ transaccion.descripcion }}</p>
+        </div>
+      </div>
+
+      <div class="detalle-item">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <div>
+          <p class="item-label">Fecha</p>
+          <p class="item-value">{{ formatearFecha(transaccion.fecha) }}</p>
+        </div>
+      </div>
+
+      <div class="detalle-item">
+        <ion-icon name="swap-horizontal-outline"></ion-icon>
+        <div>
+          <p class="item-label">Tipo</p>
+          <p class="item-value">{{ transaccion.tipo === 'ingreso' ? 'Ingreso' : 'Gasto' }}</p>
+        </div>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="foto-card" *ngIf="fotoSegura">
+    <ion-card-header>
+      <ion-card-title>
+        <ion-icon name="image-outline"></ion-icon>
+        Comprobante
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img [src]="fotoSegura" alt="Comprobante">
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="sin-foto-card" *ngIf="!fotoSegura">
+    <ion-card-content>
+      <div class="sin-foto">
+        <ion-icon name="image-outline"></ion-icon>
+        <p>Sin comprobante adjunto</p>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" (click)="cerrar()" class="cerrar-button">
+      Cerrar
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

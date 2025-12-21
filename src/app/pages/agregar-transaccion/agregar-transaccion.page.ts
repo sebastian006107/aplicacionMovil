@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { TransactionService } from '../../services/transaction.service';
 import { Transaction, CATEGORIAS_CONFIG, CATEGORIAS } from '../../models/transaction.model';
+import { Camera, CameraResultType } from '@capacitor/camera';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-agregar-transaccion',
@@ -20,12 +22,14 @@ export class AgregarTransaccionPage implements OnInit {
   };
 
   categorias: string[] = [];
-  fotoCapturada: string | null = null;
+  fotoCapturada: SafeResourceUrl | null = null;
+  fotoParaGuardar: string = '';
 
   constructor(
     private navCtrl: NavController,
     private transactionService: TransactionService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private sanitizer: DomSanitizer
   ) { }
 
   ngOnInit() {
@@ -38,27 +42,41 @@ export class AgregarTransaccionPage implements OnInit {
     } else {
       this.categorias = CATEGORIAS_CONFIG.ingresos;
     }
-    // Resetear categoría si ya no es válida para el nuevo tipo
     if (!this.categorias.includes(this.transaccion.categoria)) {
       this.transaccion.categoria = '';
     }
   }
 
   async tomarFoto() {
-    const alert = await this.alertController.create({
-      header: 'Función no disponible',
-      message: 'La cámara solo funciona en dispositivos móviles. Por ahora puedes continuar sin foto.',
-      buttons: ['OK']
-    });
-    await alert.present();
+    try {
+      const capturedPhoto = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Uri
+      });
+
+      this.fotoCapturada = this.sanitizer.bypassSecurityTrustResourceUrl(
+        capturedPhoto.webPath!
+      );
+
+      this.fotoParaGuardar = capturedPhoto.webPath || '';
+
+    } catch (error) {
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'No se pudo tomar la foto: ' + error,
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   }
 
   eliminarFoto() {
     this.fotoCapturada = null;
+    this.fotoParaGuardar = '';
   }
 
   async guardarTransaccion() {
-    // Validaciones
     if (this.transaccion.monto <= 0) {
       const alert = await this.alertController.create({
         header: 'Error',
@@ -89,10 +107,8 @@ export class AgregarTransaccionPage implements OnInit {
       return;
     }
 
-    // Obtener usuario actual
     const usuarioEmail = localStorage.getItem('currentUser') || '';
 
-    // Crear objeto de transacción
     const nuevaTransaccion: Transaction = {
       tipo: this.transaccion.tipo,
       monto: this.transaccion.monto,
@@ -102,15 +118,12 @@ export class AgregarTransaccionPage implements OnInit {
       usuario_email: usuarioEmail
     };
 
-    // Agregar foto si existe
-    if (this.fotoCapturada) {
-      nuevaTransaccion.foto_comprobante = this.fotoCapturada;
+    if (this.fotoParaGuardar) {
+      nuevaTransaccion.foto_comprobante = this.fotoParaGuardar;
     }
 
-    // Guardar en el servicio
     this.transactionService.guardarTransaccion(nuevaTransaccion);
 
-    // Mostrar alerta de éxito
     const alert = await this.alertController.create({
       header: '¡Éxito!',
       message: 'Transacción guardada correctamente',
@@ -118,7 +131,6 @@ export class AgregarTransaccionPage implements OnInit {
     });
     await alert.present();
 
-    // Volver a la página anterior
     this.navCtrl.back();
   }
 
