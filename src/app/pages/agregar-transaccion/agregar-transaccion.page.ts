@@ -122,7 +122,7 @@ export class AgregarTransaccionPage implements OnInit {
       nuevaTransaccion.foto_comprobante = this.fotoParaGuardar;
     }
 
-    this.transactionService.guardarTransaccion(nuevaTransaccion);
+    await this.transactionService.guardarTransaccion(nuevaTransaccion);
 
     const alert = await this.alertController.create({
       header: '¡Éxito!',

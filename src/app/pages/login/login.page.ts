@@ -37,8 +37,10 @@ export class LoginPage {
       return;
     }
 
-    // Validar con usuarios guardados
-    if (this.storage.validarLogin(this.username, this.password)) {
+    // Validar con usuarios guardados (SQLite o localStorage)
+    const isValid = await this.storage.validarLogin(this.username, this.password);
+    
+    if (isValid) {
       // Login exitoso - guardar sesión
       localStorage.setItem('currentUser', this.username);
       this.navCtrl.navigateForward(['/tabs/home']);

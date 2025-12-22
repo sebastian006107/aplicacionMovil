@@ -1,29 +1,23 @@
 import { Injectable } from '@angular/core';
+import { DatabaseService } from './database.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  constructor() {}
+  constructor(private databaseService: DatabaseService) {}
 
-  // Guardar usuario
-  guardarUsuario(usuario: any) {
-    const usuarios = this.obtenerUsuarios();
-    usuarios.push(usuario);
-    localStorage.setItem('usuarios', JSON.stringify(usuarios));
+  async guardarUsuario(usuario: any): Promise<void> {
+    await this.databaseService.guardarUsuario(usuario);
   }
 
-  // Obtener todos los usuarios
+  async validarLogin(email: string, password: string): Promise<boolean> {
+    return await this.databaseService.validarLogin(email, password);
+  }
+
   obtenerUsuarios(): any[] {
     const usuarios = localStorage.getItem('usuarios');
     return usuarios ? JSON.parse(usuarios) : [];
   }
-
-  // Validar login
-  validarLogin(email: string, password: string): boolean {
-    const usuarios = this.obtenerUsuarios();
-    return usuarios.some(u => u.email === email && u.password === password);
-  }
-
 }

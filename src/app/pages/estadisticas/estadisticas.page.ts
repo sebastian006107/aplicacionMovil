@@ -15,17 +15,17 @@ export class EstadisticasPage implements OnInit {
 
   constructor(private transactionService: TransactionService) { }
 
-  ngOnInit() {
-    this.cargarDatos();
+  async ngOnInit() {
+    await this.cargarDatos();
   }
 
-  ionViewWillEnter() {
-    this.cargarDatos();
+  async ionViewWillEnter() {
+    await this.cargarDatos();
   }
 
-  cargarDatos() {
-    this.balance = this.transactionService.calcularBalance();
-    const gastosPorCat = this.transactionService.obtenerGastosPorCategoria();
+  async cargarDatos() {
+    this.balance = await this.transactionService.calcularBalance();
+    const gastosPorCat = await this.transactionService.obtenerGastosPorCategoria();
     
     this.topCategorias = Object.keys(gastosPorCat)
       .map(cat => ({ categoria: cat, monto: gastosPorCat[cat] }))

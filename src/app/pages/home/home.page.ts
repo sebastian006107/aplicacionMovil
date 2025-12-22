@@ -37,26 +37,26 @@ export class HomePage implements OnInit {
     private modalController: ModalController
   ) {}
 
-  ngOnInit() {
-    this.cargarDatos();
-    this.cargarValorDolar();
+  async ngOnInit() {
+    await this.cargarDatos();
+    await this.cargarValorDolar();
   }
 
-  ionViewWillEnter() {
-    this.cargarDatos();
-    this.cargarValorDolar();
+  async ionViewWillEnter() {
+    await this.cargarDatos();
+    await this.cargarValorDolar();
   }
 
-  cargarDatos() {
+  async cargarDatos() {
     this.usuarioEmail = localStorage.getItem('currentUser') || '';
-    this.balance = this.transactionService.calcularBalance();
-    this.transacciones = this.transactionService.obtenerTransacciones();
+    this.balance = await this.transactionService.calcularBalance();
+    this.transacciones = await this.transactionService.obtenerTransacciones();
     
     this.ultimasTransacciones = this.transacciones
       .sort((a, b) => new Date(b.fecha).getTime() - new Date(a.fecha).getTime())
       .slice(0, 5);
     
-    this.calcularGastosPorCategoria();
+    await this.calcularGastosPorCategoria();
     this.calcularBalanceEnDolares();
   }
 
@@ -86,8 +86,8 @@ export class HomePage implements OnInit {
     }
   }
 
-  calcularGastosPorCategoria() {
-    const gastos = this.transactionService.obtenerGastosPorCategoria();
+  async calcularGastosPorCategoria() {
+    const gastos = await this.transactionService.obtenerGastosPorCategoria();
     const totalGastos = this.balance.gastos;
     
     this.gastosPorCategoria = Object.keys(gastos).map(categoria => {
@@ -123,11 +123,11 @@ export class HomePage implements OnInit {
         { text: 'Cancelar', role: 'cancel' },
         {
           text: 'Eliminar',
-          handler: () => {
+          handler: async () => {
             if (transaction.id) {
-              this.transactionService.eliminarTransaccion(transaction.id);
-              this.cargarDatos();
-              this.mostrarToast('Transacción eliminada');
+              await this.transactionService.eliminarTransaccion(transaction.id);
+              await this.cargarDatos();
+              this.mostrarAlertaTemporal('Transacción eliminada');
             }
           }
         }
@@ -191,14 +191,6 @@ export class HomePage implements OnInit {
     const alert = await this.alertController.create({
       message: mensaje,
       buttons: ['OK']
-    });
-    await alert.present();
-  }
-
-  async mostrarToast(mensaje: string) {
-    const alert = await this.alertController.create({
-      message: mensaje,
-      cssClass: 'toast-success'
     });
     await alert.present();
   }

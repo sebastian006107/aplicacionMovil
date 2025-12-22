@@ -42,8 +42,8 @@ export class RegistroPage {
       return;
     }
 
-    // Guardar usuario
-    this.storage.guardarUsuario({
+    // Guardar usuario (SQLite o localStorage)
+    await this.storage.guardarUsuario({
       nombre: this.nombre,
       apellido: this.apellido,
       email: this.email,
