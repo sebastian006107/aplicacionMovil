@@ -8,12 +8,27 @@
   padding: 20px;
 }
 
+// TÍTULO KUENTA
+.app-title {
+  margin-bottom: 20px;
+  animation: fadeInDown 0.5s ease-out;
+  
+  h1 {
+    font-size: 48px;
+    font-weight: 800;
+    color: white;
+    margin: 0;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+  }
+}
+
 .logo-container {
   text-align: center;
-  margin-bottom: 60px;
+  margin-bottom: 40px;
 
   .logo {
-    width: 320px;
+    width: 280px;
     height: auto;
   }
 }
@@ -63,16 +78,21 @@
   }
 }
 
+// Animaciones
 .login-container {
   animation: fadeIn 0.5s ease-out;
 }
 
+.app-title {
+  animation: fadeInDown 0.5s ease-out;
+}
+
 .logo-container {
-  animation: fadeInDown 0.6s ease-out;
+  animation: fadeInDown 0.7s ease-out;
 }
 
 .login-card {
-  animation: fadeInUp 0.7s ease-out;
+  animation: fadeInUp 0.8s ease-out;
 }
 
 @keyframes fadeIn {
@@ -83,7 +103,7 @@
 @keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(-20px);
+    transform: translateY(-30px);
   }
   to {
     opacity: 1;
